@@ -1,55 +1,46 @@
-using VLCTraders.Api.Models.Domain;
+# VLC Traders Business Manager API
 
-namespace VLCTraders.Api.Data
+This repository contains a starter ASP.NET Core Web API implementation for the VLC Traders Business Manager specification.
+
+## Stack
+- ASP.NET Core Web API
+- Entity Framework Core
+- MySQL / MariaDB
+- JWT authentication
+- Swagger/OpenAPI
+
+## Features
+- Customer, vendor, material, purchase, sale, stock, expense, CRM, quotation, invoice, note, task, bank ledger, and audit models
+- MySQL EF Core configuration
+- Standard API response envelope
+- JWT auth setup
+- Global exception middleware
+- Swagger security configuration
+
+## Configuration
+Update the connection string and JWT settings in `appsettings.json` before running the project.
+
+## Run
+```bash
+dotnet restore
+dotnet build
+dotnet run
+```
+
+Then open:
+- http://localhost:5000/swagger
+- or the configured ASP.NET Core HTTPS port
+
+## Sample login
+POST /api/v1/auth/login
+
+Request body:
+```json
 {
-    public static class DbInitializer
-    {
-        public static void Initialize(ApplicationDbContext context)
-        {
-            context.Database.EnsureCreated();
-
-            if (context.Customers.Any())
-            {
-                return;
-            }
-
-            var customer = new Customer
-            {
-                CustomerName = "ABC Auto Parts",
-                Location = "Muscat",
-                Address = "Ruwi",
-                ContactPerson = "Ahmed",
-                Mobile = "91234567",
-                Email = "abc@test.com",
-                Status = "Active",
-                CreatedBy = "system"
-            };
-
-            context.Customers.Add(customer);
-
-            var material = new Material
-            {
-                MaterialName = "NPF Bike",
-                MinimumStockLevel = 25,
-                Status = "Active",
-                CreatedBy = "system"
-            };
-
-            context.Materials.Add(material);
-            context.SaveChanges();
-
-            var vendor = new Vendor
-            {
-                VendorName = "XYZ Industries",
-                Address = "Dubai",
-                Contact = "+97150000000",
-                GstNumber = "GST12345",
-                Status = "Active",
-                CreatedBy = "system"
-            };
-
-            context.Vendors.Add(vendor);
-            context.SaveChanges();
-        }
-    }
+  "username": "admin",
+  "password": "Password@123"
 }
+```
+
+## Notes
+This is a starter backend foundation, designed to be extended with full ERP workflows, validation, and production-grade service layers.
